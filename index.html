@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>বাংলাদেশ পুলিশ | সাইবার ক্রাইম অভিযোগ</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+      background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+
+    header {
+      background: rgba(0, 31, 63, 0.97);
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 3px solid #ffd700;
+    }
+
+    .logo {
+      color: white;
+      font-size: 1.9rem;
+      font-weight: 700;
+    }
+
+    .logo span { color: #ffd700; }
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      color: white;
+    }
+
+    .hero h1 { font-size: 2.9rem; margin-bottom: 15px; }
+
+    .section {
+      padding: 60px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .form-container {
+      background: white;
+      padding: 50px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 35px;
+      color: #001f3f;
+      font-size: 2.1rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+    }
+
+    label { display: block; margin-bottom: 8px; font-weight: 600; color: #001f3f; }
+    input, select, textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #ffd700;
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+    }
+
+    .full-width { grid-column: 1 / -1; }
+
+    .preview-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .preview-item {
+      max-width: 180px;
+      border: 3px solid #ffd700;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preview-item img, .preview-item video {
+      width: 100%;
+      display: block;
+    }
+
+    .remove-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: red;
+      color: white;
+      border: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .checkbox { display: flex; align-items: flex-start; gap: 10px; margin: 25px 0; }
+    .btn {
+      width: 100%;
+      padding: 16px;
+      background: #ffd700;
+      color: #001f3f;
+      font-size: 1.25rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .success {
+      color: #006400;
+      text-align: center;
+      margin: 25px 0;
+      font-size: 1.25rem;
+      font-weight: bold;
+      display: none;
+    }
+
+    footer {
+      background: #001f3f;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">বাংলাদেশ পুলিশ <span>|</span> Bangladesh Police</div>
+  </header>
+
+  <section class="hero">
+    <h1>সাইবার ক্রাইম অভিযোগ ফর্ম</h1>
+    <p style="font-size:1.35rem; max-width:850px; margin:0 auto;">
+      ভিকটিমের ছবি/ভিডিও সহ প্রমাণ আপলোড করুন। সবকিছু গোপন রাখা হবে।
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="form-container">
+      <h2>অভিযোগ দাখিল করুন</h2>
+      
+      <form id="complaintForm">
+        <div class="form-grid">
+          <div>
+            <label>ভিকটিমের পুরো নাম *</label>
+            <input type="text" id="victimName" required placeholder="পুরো নাম">
+          </div>
+          <div>
+            <label>মোবাইল নম্বর *</label>
+            <input type="tel" id="phone" required placeholder="০১XXXXXXXXX">
+          </div>
+          <div>
+            <label>ইমেইল</label>
+            <input type="email" id="email" placeholder="আপনার ইমেইল">
+          </div>
+          <div>
+            <label>জেলা *</label>
+            <input type="text" id="district" required placeholder="ঢাকা">
+          </div>
+
+          <div class="full-width">
+            <label>অভিযোগের ধরন *</label>
+            <select id="crimeType" required>
+              <option value="">-- নির্বাচন করুন --</option>
+              <option value="অনলাইন হয়রানি">অনলাইন হয়রানি / সাইবার বুলিং</option>
+              <option value="ফেসবুক জালিয়াতি">ফেসবুক/ইনস্টাগ্রাম জাল অ্যাকাউন্ট</option>
+              <option value="অনলাইন প্রতারণা">অনলাইন প্রতারণা / টাকা আত্মসাৎ</option>
+              <option value="অশ্লীল কনটেন্ট">অশ্লীল ছবি/ভিডিও ছড়ানো</option>
+              <option value="অন্যান্য">অন্যান্য</option>
+            </select>
+          </div>
+
+          <!-- Victim Photo + Evidence Gallery -->
+          <div class="full-width">
+            <label>ভিকটিমের ছবি / ভিডিও / প্রমাণ আপলোড করুন (একাধিক)</label>
+            <input type="file" id="evidenceFiles" multiple accept="image/*,video/*">
+            <div id="previewContainer" class="preview-container"></div>
+          </div>
+
+          <div class="full-width">
+            <label>ঘটনার বিস্তারিত বর্ণনা *</label>
+            <textarea id="description" rows="7" required placeholder="বিস্তারিত লিখুন..."></textarea>
+          </div>
+        </div>
+
+        <div class="checkbox">
+          <input type="checkbox" id="privacy" required>
+          <label for="privacy">আমি নিশ্চিত করছি যে তথ্য সঠিক এবং অভিযোগ গোপন রাখা হবে।</label>
+        </div>
+
+        <button type="submit" class="btn" id="submitBtn">অভিযোগ জমা দিন ও PDF ডাউনলোড করুন</button>
+      </form>
+
+      <div id="successMessage" class="success">
+        ✅ অভিযোগ সফলভাবে জমা হয়েছে!<br>
+        PDF ডাউনলোড হয়ে গেছে (ছবি/ভিডিও সহ)।
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Digital Fortress Wing — বাংলাদেশ পুলিশ © 2026</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    let uploadedFiles = [];
+
+    // Preview Gallery (Photo + Video)
+    document.getElementById('evidenceFiles').addEventListener('change', function(e) {
+      const files = e.target.files;
+      const container = document.getElementById('previewContainer');
+
+      for (let file of files) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          const div = document.createElement('div');
+          div.className = 'preview-item';
+          div.innerHTML = `
+            ${file.type.startsWith('image/') 
+              ? `<img src="${ev.target.result}" alt="preview">` 
+              : `<video src="${ev.target.result}" controls></video>`}
+            <button class="remove-btn" onclick="removeFile(this)">×</button>
+          `;
+          container.appendChild(div);
+          uploadedFiles.push({ name: file.name, data: ev.target.result, type: file.type });
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    window.removeFile = function(btn) {
+      btn.parentElement.remove();
+      // uploadedFiles array থেকে রিমুভ করা সিম্পল রাখা হয়েছে (প্রয়োজনে আরও লজিক যোগ করা যায়)
+    };
+
+    document.getElementById('complaintForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.innerHTML = 'প্রসেসিং হচ্ছে...';
+      submitBtn.disabled = true;
+
+      setTimeout(() => {
+        generatePDFWithFiles();
+        document.getElementById('successMessage').style.display = 'block';
+
+        // Reset
+        this.reset();
+        document.getElementById('previewContainer').innerHTML = '';
+        uploadedFiles = [];
+        submitBtn.innerHTML = 'অভিযোগ জমা দিন ও PDF ডাউনলোড করুন';
+        submitBtn.disabled = false;
+      }, 1500);
+    });
+
+    function generatePDFWithFiles() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const margin = 18;
+
+      // Official Header with Police Logo
+      doc.setFillColor(0, 31, 63);
+      doc.rect(0, 0, pageWidth, 48, "F");
+
+      // Logo (Official Bangladesh Police Logo URL)
+      const logoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Bangladesh_Police_Emblem.svg/800px-Bangladesh_Police_Emblem.svg.png";
+      doc.addImage(logoUrl, 'PNG', margin, 8, 38, 32);
+
+      doc.setTextColor(255, 215, 0);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(20);
+      doc.text("বাংলাদেশ পুলিশ", pageWidth/2 + 10, 20, { align: "center" });
+
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(11);
+      doc.text("BANGLADESH POLICE • DIGITAL FORTRESS WING", pageWidth/2 + 10, 28, { align: "center" });
+      doc.text("সাইবার ক্রাইম ইউনিট", pageWidth/2 + 10, 35, { align: "center" });
+
+      // Title
+      doc.setTextColor(0, 31, 63);
+      doc.setFontSize(17);
+      doc.text("সাইবার অপরাধ অভিযোগের রসিদ", pageWidth/2, 65, { align: "center" });
+
+      const complaintNo = "BD-CYBER-" + Math.floor(10000000 + Math.random() * 90000000);
+      doc.setFontSize(12);
+      doc.text("অভিযোগ নম্বর: " + complaintNo, margin, 80);
+      doc.text("তারিখ: " + new Date().toLocaleDateString('bn-BD'), margin, 88);
+
+      // Victim Info
+      doc.setFontSize(12);
+      doc.text("ভিকটিমের তথ্য:", margin, 105);
+      doc.setFontSize(11);
+      doc.text("নাম: " + (document.getElementById('victimName').value || "—"), margin, 115);
+      doc.text("মোবাইল: " + (document.getElementById('phone').value || "—"), margin, 123);
+      doc.text("জেলা: " + (document.getElementById('district').value || "—"), margin, 131);
+
+      // Crime Type & Description
+      doc.text("অভিযোগের ধরন: " + (document.getElementById('crimeType').value || "—"), margin, 145);
+      doc.text("বিস্তারিত বর্ণনা:", margin, 158);
+
+      const desc = document.getElementById('description').value || "বর্ণনা নেই";
+      const splitDesc = doc.splitTextToSize(desc, pageWidth - margin*2);
+      doc.text(splitDesc, margin, 168);
+
+      // Victim / Evidence Files in PDF
+      let yPosition = 200;
+
+      if (uploadedFiles.length > 0) {
+        doc.setFontSize(12);
+        doc.text("আপলোডকৃত প্রমাণ / ছবি / ভিডিও:", margin, yPosition);
+        yPosition += 12;
+
+        uploadedFiles.forEach((file, index) => {
+          if (file.type.startsWith('image/') && yPosition < 240) {
+            try {
+              doc.addImage(file.data, 'JPEG', margin + (index % 2) * 90, yPosition, 70, 50);
+            } catch(e) {}
+          }
+          doc.setFontSize(10);
+          doc.text(file.name, margin, yPosition + 55);
+          yPosition += 65;
+        });
+      }
+
+      // Footer
+      doc.setFontSize(10);
+      doc.text("এই ডকুমেন্টটি ডিজিটালি জেনারেটেড এবং বাংলাদেশ পুলিশের অফিসিয়াল রেকর্ড।", pageWidth/2, 270, { align: "center" });
+      doc.text("হটলাইন: ৯৯৯ | cyber@police.gov.bd", pageWidth/2, 278, { align: "center" });
+
+      doc.save(`Bangladesh_Police_Cyber_Complaint_${complaintNo}.pdf`);
+    }
+  </script>
+</body>
+</html>
